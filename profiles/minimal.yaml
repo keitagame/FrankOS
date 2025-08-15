@@ -1,32 +1,25 @@
-name: frankos-desktop
+name: frankos-minimal
 version: "2025.08.15"
 arch: x86_64
 
 base:
   mirror: https://archive.archlinux.org/repos/2025/08/15/
   pacman_conf: profiles/common/pacman.conf
-  locale: ja_JP.UTF-8
-  timezone: Asia/Tokyo
-  keymap: jp106
+  locale: en_US.UTF-8
+  timezone: UTC
+  keymap: us
 
 packages:
   - base
   - linux
   - linux-firmware
   - systemd
-  - networkmanager
-  - grub
-  - efibootmgr
-  - xorg
-  - mesa
-  - pipewire
-  - wayland
-  - foot
-  - nano
+  - bash
+  - vim
 
 services:
   enable:
-    - NetworkManager
+    - systemd-journald
 
 users:
   - name: frank
@@ -36,16 +29,19 @@ users:
 
 overlays:
   - path: overlays/common
-  - path: overlays/desktop
+
+hooks:
+  pre_chroot: hooks/pre-chroot.sh
+  post_chroot: hooks/post-chroot.sh
+  pre_iso: ""
+  post_iso: ""
 
 boot:
-  loader: grub
+  loader: systemd-boot
   efi: true
-  bios: true
-  theme: boot/themes/frank
+  bios: false
 
 artifacts:
-  iso_name: FrankOS-{version}-{arch}.iso
+  iso_name: FrankOS-minimal-{version}-{arch}.iso
   sign:
     sha256: true
-    minisign: true
