@@ -35,7 +35,7 @@ jobs:
 
       - name: Build ISO
         run: |
-          sudo bin/frankiso build \
+          bin/frankiso build \
             -p profiles/minimal.yaml \
             -o dist
 
