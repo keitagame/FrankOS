@@ -19,7 +19,14 @@ jobs:
 
       - name: Install tools
         run: pacman -Sy --noconfirm xorriso
+      
+      - name: Install arch-install-scripts
+        run: pacman -Sy --noconfirm arch-install-scripts
 
+      - name: Create rootfs with pacstrap
+        run: |
+          mkdir -p dist/rootfs
+          pacstrap -c -d dist/rootfs base linux
       - name: Make build.sh executable
         run: chmod +x build.sh
 
