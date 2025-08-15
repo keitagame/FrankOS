@@ -47,13 +47,9 @@ func main() {
             fmt.Println("==> Creating rootfs")
           
             args := append([]string{
-    　　　　　　　　
-                "pacman", "-Sy",
-    　　　　　　　　
-                "--root", outDir + "/rootfs",
-    　　　　　　　　
-                "--dbpath", outDir + "/rootfs/var/lib/pacman",
-　　　　　　　
+    　　　　　　　"pacman", "-Sy",
+    　　　　　　　"--root", outDir + "/rootfs",
+    　　　　　　　"--dbpath", outDir + "/rootfs/var/lib/pacman",
             }, p.Packages...) // YAMLから読み込んだパッケージ群
 
             cmd := exec.Command("sudo", args...)
