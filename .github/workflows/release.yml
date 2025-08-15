@@ -2,8 +2,7 @@ name: Build & Release FrankOS
 
 on:
   push:
-    tags:
-      - 'v*'
+    
 
 jobs:
   build:
