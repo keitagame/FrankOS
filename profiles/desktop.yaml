@@ -1,0 +1,51 @@
+name: frankos-desktop
+version: "2025.08.15"
+arch: x86_64
+
+base:
+  mirror: https://archive.archlinux.org/repos/2025/08/15/
+  pacman_conf: profiles/common/pacman.conf
+  locale: ja_JP.UTF-8
+  timezone: Asia/Tokyo
+  keymap: jp106
+
+packages:
+  - base
+  - linux
+  - linux-firmware
+  - systemd
+  - networkmanager
+  - grub
+  - efibootmgr
+  - xorg
+  - mesa
+  - pipewire
+  - wayland
+  - foot
+  - nano
+
+services:
+  enable:
+    - NetworkManager
+
+users:
+  - name: frank
+    groups: [wheel]
+    password: disabled
+    sudo_nopasswd: true
+
+overlays:
+  - path: overlays/common
+  - path: overlays/desktop
+
+boot:
+  loader: grub
+  efi: true
+  bios: true
+  theme: boot/themes/frank
+
+artifacts:
+  iso_name: FrankOS-{version}-{arch}.iso
+  sign:
+    sha256: true
+    minisign: true
