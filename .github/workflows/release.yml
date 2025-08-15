@@ -1,0 +1,40 @@
+name: Build & Release FrankOS
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Install build tools
+        run: |
+          sudo pacman -Sy --noconfirm \
+            arch-install-scripts xorriso
+
+      - name: Build frankiso
+        run: |
+          cd frankiso
+          go build -o ../bin/frankiso
+
+      - name: Build ISO
+        run: |
+          sudo bin/frankiso build \
+            -p profiles/minimal.yaml \
+            -o dist
+
+      - name: Release ISO
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.iso
