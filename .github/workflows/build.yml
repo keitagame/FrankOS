@@ -23,10 +23,14 @@ jobs:
       - name: Install arch-install-scripts
         run: pacman -Sy --noconfirm arch-install-scripts
 
-      - name: Create rootfs with pacstrap
+      - name: Download rootfs
+        run: curl -L -o rootfs.tar.gz https://github.com/FrankOS/releases/download/vX.Y.Z/rootfs.tar.gz
+
+      - name: Extract rootfs
         run: |
           mkdir -p dist/rootfs
-          pacstrap -c dist/rootfs base linux
+          tar -xzf rootfs.tar.gz -C dist/rootfs
+
       - name: Make build.sh executable
         run: chmod +x build.sh
 
