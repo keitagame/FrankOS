@@ -7,7 +7,7 @@ ISO=dist/frankos-minimal.iso
 # クリーン
 rm -rf dist
 mkdir -p $ROOTFS
-
+pacstrap -c -d dist/rootfs base linux
 # 1) pacman で rootfs をブートストラップ
 pacman -Sy --noconfirm \
   --root="$ROOTFS" \
