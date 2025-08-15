@@ -21,10 +21,10 @@ jobs:
         run: pacman -Sy --noconfirm xorriso
 
       - name: Make build.sh executable
-        run: chmod +x frankiso/build.sh
+        run: chmod +x build.sh
 
       - name: Run build
-        run: ./frankiso/build.sh
+        run: ./build.sh
 
       - name: Publish ISO
         uses: softprops/action-gh-release@v2
