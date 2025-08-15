@@ -43,13 +43,20 @@ func main() {
             }
 
             // 2) rootfs 作成 (pacstrap 相当)
-            os.MkdirAll(outDir+"/rootfs", 0755)
+            os.MkdirAll(outDir+"/rootfs/var/lib/pacman", 0755)
             fmt.Println("==> Creating rootfs")
           
-            c1 := exec.Command("pacstrap", "-c", "-G", outDir+"/rootfs")
+            args := append([]string{
+    　　　　　　　　"pacman", "-Sy",
+    　　　　　　　　"--root", outDir + "/rootfs",
+    　　　　　　　　"--dbpath", outDir + "/rootfs/var/lib/pacman",
+　　　　　　　}, p.Packages...) // YAMLから読み込んだパッケージ群
 
-            c1.Stdout = os.Stdout
-            c1.Stderr = os.Stderr
+　　　　　　　cmd := exec.Command("sudo", args...)
+　　　　　　　cmd.Stdout = os.Stdout
+　　　　　　　cmd.Stderr = os.Stderr
+　　　　　　　err := cmd.Run()
+
             if err := c1.Run(); err != nil {
                 return err
             }
