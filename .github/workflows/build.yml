@@ -30,6 +30,7 @@ jobs:
       - name: Build frankiso
         run: |
           cd frankiso
+          go mod tidy
           go build -o ../bin/frankiso
 
       - name: Build ISO
