@@ -46,7 +46,7 @@ func main() {
             os.MkdirAll(outDir+"/rootfs", 0755)
             fmt.Println("==> Creating rootfs")
             iargs := append([]string{"pacstrap", "-c", "-d", outDir + "/rootfs"}, p.Packages...)
-            c1 := exec.Command("", iargs...)
+            c1 := exec.Command( iargs...)
 
             c1.Stdout = os.Stdout
             c1.Stderr = os.Stderr
