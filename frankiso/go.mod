@@ -1,4 +1,4 @@
-module github.com/yourorg/frankiso
+module github.com/keitagame/FrankOS/frankiso
 
 go 1.22
 
