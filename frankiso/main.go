@@ -45,7 +45,9 @@ func main() {
             // 2) rootfs 作成 (pacstrap 相当)
             os.MkdirAll(outDir+"/rootfs", 0755)
             fmt.Println("==> Creating rootfs")
-            c1 := exec.Command("sudo", "pacstrap", "-c", "-d", outDir+"/rootfs", p.Packages...)
+            args := append([]string{"pacstrap", "-c", "-d", outDir + "/rootfs"}, p.Packages...)
+            c1 := exec.Command("sudo", args...)
+
             c1.Stdout = os.Stdout
             c1.Stderr = os.Stderr
             if err := c1.Run(); err != nil {
