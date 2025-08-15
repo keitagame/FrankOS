@@ -9,10 +9,7 @@ rm -rf dist
 mkdir -p $ROOTFS
 
 # 1) pacman で rootfs をブートストラップ
-pacman -Sy --noconfirm \
-  --root="$ROOTFS" \
-  --dbpath="$ROOTFS/var/lib/pacman" \
-  base linux bash vim
+pacstrap -c -d "$ROOTFS" base linux bash vim
 
 # 2) pacman.conf をコピー（必要に応じてカスタマイズ）
 mkdir -p $ROOTFS/etc
